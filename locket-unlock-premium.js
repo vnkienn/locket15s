@@ -1,45 +1,20 @@
-/**
- * Shadowrocket Script - Unlock All Premium Features
- * 
- * Script này sẽ tự động unlock toàn bộ tính năng premium (Gold) trong payload API Locket
- * 
- * Tính năng được unlock:
- * - Tất cả feature gates (subscriber → enabled)
- * - Upsell features (bật locket_views)
- * - Unlimited friends (tăng giới hạn lên 9999)
- * - Android Gold subscription override
- * - Beta features
- * 
- * CÁCH CÀI ĐẶT:
- * 1. Mở Shadowrocket → Settings → Script
- * 2. Add Script → Paste code này
- * 3. Đặt tên: "Locket Unlock Premium"
- * 4. Vào Settings → Rewrite → Add Rule:
- *    - Type: Script
- *    - Pattern: ^https://api\.locketcamera\.com/setClientData
- *    - Script: Chọn script vừa tạo
- *    - Requires Body: BẬT
- * 5. Bật rule
- */
+// ========= Locket Gold Unlock ========= //
+// =========  @Auto ========= // 
 
-// Kiểm tra URL
-if (!$request.url || !$request.url.includes('api.locketcamera.com/setClientData')) {
+// Kiểm tra URL (http-response nên dùng $response)
+if (!$response.url || !$response.url.includes('api.locketcamera.com/setClientData')) {
     $done({});
 }
 
-// Kiểm tra method
-if ($request.method !== 'POST') {
-    $done({});
-}
+var ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
+var body = $response.body;
 
-// Lấy body
-let body = $request.body;
 if (!body) {
     $done({});
 }
 
-// Parse JSON
-let payload;
+// Parse JSON payload
+var payload;
 try {
     if (typeof body === 'string') {
         payload = JSON.parse(body);
@@ -50,9 +25,10 @@ try {
     $done({});
 }
 
-let modified = false;
+// =========   Phần cố định  ========= // 
+// =========  @Auto ========= // 
 
-// Hàm đệ quy để tìm và sửa các giá trị
+// Hàm đệ quy để unlock premium features
 function unlockPremiumFeatures(obj) {
     if (!obj || typeof obj !== 'object') return false;
     
@@ -138,7 +114,7 @@ function unlockPremiumFeatures(obj) {
 
 // Thực hiện unlock
 if (unlockPremiumFeatures(payload)) {
-    // Trả về body đã được modify
+    // Trả về response body đã được modify
     $done({
         body: JSON.stringify(payload)
     });
