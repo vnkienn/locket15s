@@ -1,17 +1,25 @@
 // ========= Locket Gold Unlock ========= //
 // =========  @Auto ========= // 
 
+console.log('🔍 [Locket Gold] Script đã chạy!');
+
 // Kiểm tra URL (http-response nên dùng $response)
 if (!$response.url || !$response.url.includes('api.locketcamera.com/setClientData')) {
+    console.log('ℹ️ [Locket Gold] Không phải request đến setClientData, bỏ qua');
     $done({});
 }
+
+console.log('✅ [Locket Gold] Đã match URL:', $response.url);
 
 var ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
 var body = $response.body;
 
 if (!body) {
+    console.log('⚠️ [Locket Gold] Không có body trong response');
     $done({});
 }
+
+console.log('📦 [Locket Gold] Body size:', typeof body === 'string' ? body.length : 'object');
 
 // Parse JSON payload
 var payload;
@@ -21,7 +29,9 @@ try {
     } else {
         payload = body;
     }
+    console.log('✅ [Locket Gold] Đã parse JSON thành công');
 } catch (e) {
+    console.log('❌ [Locket Gold] Lỗi parse JSON:', e.message);
     $done({});
 }
 
@@ -49,6 +59,7 @@ function unlockPremiumFeatures(obj) {
                     }
                     if (gatesChanged) {
                         obj[key] = JSON.stringify(featureGates);
+                        console.log('✅ [Locket Gold] Đã unlock feature_gates');
                         changed = true;
                     }
                 } catch (e) {
@@ -63,6 +74,7 @@ function unlockPremiumFeatures(obj) {
                     if (upsell.locket_views === false) {
                         upsell.locket_views = true;
                         obj[key] = JSON.stringify(upsell);
+                        console.log('✅ [Locket Gold] Đã bật locket_views');
                         changed = true;
                     }
                 } catch (e) {
@@ -113,13 +125,17 @@ function unlockPremiumFeatures(obj) {
 }
 
 // Thực hiện unlock
+console.log('🚀 [Locket Gold] Bắt đầu unlock premium features...');
 if (unlockPremiumFeatures(payload)) {
     // Trả về response body đã được modify
+    var newBody = JSON.stringify(payload);
+    console.log('✅ [Locket Gold] Đã modify payload thành công! Size:', newBody.length, 'bytes');
     $done({
-        body: JSON.stringify(payload)
+        body: newBody
     });
 } else {
     // Không có gì để thay đổi
+    console.log('ℹ️ [Locket Gold] Không có gì để modify, payload đã có premium features');
     $done({});
 }
 
