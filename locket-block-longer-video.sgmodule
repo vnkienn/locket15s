@@ -1,11 +1,19 @@
-#!name=Locket Unlock Premium
-#!desc=Unlock toàn bộ tính năng premium (Gold) trong payload API Locket - Bật tất cả feature gates, unlimited friends, beta features
-#!author=Auto
-#!homepage=
-#!icon=
+#!url=https://raw.githubusercontent.com/your-repo/15s/Locket_Gold.sgmodule
+
+#!name=Locket Gold Unlock
+
+#!desc=Unlock toàn bộ tính năng premium Gold - Crack By Auto
 
 [Script]
-http-request ^https://api\.locketcamera\.com/setClientData script-path=https://raw.githubusercontent.com/vnkienn/locket15s/refs/heads/main/locket-unlock-premium.js,requires-body=true,timeout=10,enable=true
+
+# ~ By Auto
+# ～ Egern transfer to Shadowrocket & Surge & LanceX
+
+unlock_premium = type=http-response, pattern=^https:\/\/api\.locketcamera\.com\/setClientData, script-path=https://raw.githubusercontent.com/your-repo/15s/Locket_Gold.js, requires-body=true, max-size=-1, timeout=60
+
+deleteHeader = type=http-request, pattern=^https:\/\/api\.locketcamera\.com\/setClientData, script-path=https://raw.githubusercontent.com/your-repo/15s/deleteHeader_Locket.js, timeout=60
 
 [MITM]
-hostname = api.locketcamera.com
+
+hostname = %APPEND% api.locketcamera.com
+
