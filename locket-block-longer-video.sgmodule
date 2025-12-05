@@ -1,0 +1,11 @@
+#!name=Locket Unlock Premium
+#!desc=Unlock toàn bộ tính năng premium (Gold) trong payload API Locket - Bật tất cả feature gates, unlimited friends, beta features
+#!author=Auto
+#!homepage=
+#!icon=
+
+[Script]
+http-request ^https://api\.locketcamera\.com/setClientData script-path=locket-unlock-premium.js,requires-body=true,timeout=10,enable=true
+
+[MITM]
+hostname = api.locketcamera.com
