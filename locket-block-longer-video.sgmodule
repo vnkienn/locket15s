@@ -9,7 +9,7 @@
 # ~ By Auto
 # ～ Egern transfer to Shadowrocket & Surge & LanceX
 
-unlock_premium = type=http-response, pattern=^https:\/\/api\.locketcamera\.com\/setClientData, script-path=https://raw.githubusercontent.com/vnkienn/locket15s/refs/heads/main/Locket_Gold.js, requires-body=true, max-size=-1, timeout=60
+unlock_premium = type=http-response, pattern=^https:\/\/api\.locketcamera\.com\/setClientData, script-path=https://raw.githubusercontent.com/vnkienn/locket15s/refs/heads/main/locket-unlock-premium.js, requires-body=true, max-size=-1, timeout=60
 
 deleteHeader = type=http-request, pattern=^https:\/\/api\.locketcamera\.com\/setClientData, script-path=https://raw.githubusercontent.com/vnkienn/locket15s/refs/heads/main/deleteHeader_Locket.js, timeout=60
 
