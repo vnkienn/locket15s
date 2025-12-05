@@ -1,0 +1,19 @@
+/***********************************************
+> deleteHeader by Auto
+> Xóa các headers không cần thiết cho API Locket
+***********************************************/	
+
+const version = 'V1.0.0';
+
+function setHeaderValue(e, a, d) {
+    var r = a.toLowerCase();
+    r in e ? e[r] = d : e[a] = d;
+}
+
+var modifiedHeaders = $request.headers;
+
+// Xóa các headers có thể gây vấn đề (nếu cần)
+// setHeaderValue(modifiedHeaders, "X-Custom-Header", "");
+
+$done({headers: modifiedHeaders});
+
